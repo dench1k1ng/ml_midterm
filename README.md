@@ -169,10 +169,10 @@ jupyter lab main.ipynb
 
 В ноутбуке выбрать **Restart Kernel and Run All Cells**.
 
-Проверка раздела 2 (ноутбук запускается во временной папке, около 20 секунд):
+Проверить, что ноутбук выполняется с нуля без ошибок:
 
 ```bash
-python -m pytest -q tests
+jupyter nbconvert --to notebook --execute main.ipynb --output /tmp/main_check.ipynb
 ```
 
 ## Правила совместной работы
