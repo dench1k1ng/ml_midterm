@@ -1,0 +1,7 @@
+model,preprocessing_inside_pipeline,unfitted_prototype,shared_cv_folds
+Dummy (median),True,True,True
+Ridge,True,True,True
+Ridge (log1p target),True,True,True
+Random Forest,True,True,True
+Gradient Boosting,True,True,True
+Gradient Boosting (log1p target),True,True,True

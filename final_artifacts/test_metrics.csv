@@ -1,0 +1,2 @@
+model,test_rows,MAE,RMSE,R2
+Gradient Boosting (log1p target),146,14621.680233229006,20117.595483354653,0.9290825235636412
