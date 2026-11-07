@@ -3,6 +3,9 @@
 Data: `Project_eng.zip` (`project-5/train_data.csv` — 6,750 rows, `project-5/test_data.csv` — 750 rows).
 Test rows must not be deleted.
 
+- Progress and next steps: [PROGRESS.md](PROGRESS.md)
+- Guide for participant 2: [PARTICIPANT2_GUIDE.md](PARTICIPANT2_GUIDE.md)
+
 | Part | Owner | Deliverable | Status |
 |---|---|---|---|
 | Data audit & EDA | Denis | `Denis_Credit_Default_EDA.ipynb` | done |
