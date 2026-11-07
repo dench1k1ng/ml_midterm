@@ -1,0 +1,85 @@
+{
+  "split": {
+    "method": "stratified train_test_split",
+    "valid_size": 0.2,
+    "random_state": 42,
+    "train_rows": 5400,
+    "valid_rows": 1350
+  },
+  "baseline": {
+    "model": "LogisticRegression",
+    "class_weight": "balanced",
+    "max_iter": 2000,
+    "threshold": 0.5
+  },
+  "features_after_preprocessing": [
+    "Annual Income",
+    "Maximum Open Credit",
+    "Current Loan Amount",
+    "Current Credit Balance",
+    "Monthly Debt",
+    "Tax Liens",
+    "Number of Open Accounts",
+    "Years of Credit History",
+    "Number of Credit Problems",
+    "Months since last delinquent",
+    "Bankruptcies",
+    "Credit Score",
+    "Years in current job",
+    "income_score_missing",
+    "delinquent_missing",
+    "tenure_missing",
+    "score_scale_flag",
+    "loan_sentinel_flag",
+    "Home Ownership_Home Mortgage",
+    "Home Ownership_Own Home",
+    "Home Ownership_Rent",
+    "Home Ownership_infrequent_sklearn",
+    "Purpose_business loan",
+    "Purpose_buy a car",
+    "Purpose_buy house",
+    "Purpose_debt consolidation",
+    "Purpose_home improvements",
+    "Purpose_major purchase",
+    "Purpose_medical bills",
+    "Purpose_other",
+    "Purpose_take a trip",
+    "Purpose_infrequent_sklearn",
+    "Term_Long Term",
+    "Term_Short Term"
+  ],
+  "validation_metrics": {
+    "Dummy (majority class)": {
+      "Precision": 0.0,
+      "Recall": 0.0,
+      "F1": 0.0,
+      "Accuracy": 0.7148
+    },
+    "Logistic regression (baseline)": {
+      "Precision": 0.4577,
+      "Recall": 0.6468,
+      "F1": 0.5361,
+      "Accuracy": 0.6807
+    },
+    "without anomaly flags": {
+      "Precision": 0.3898,
+      "Recall": 0.5974,
+      "F1": 0.4718,
+      "Accuracy": 0.6185
+    }
+  },
+  "cv_training_part": {
+    "precision": {
+      "mean": 0.479,
+      "std": 0.0103
+    },
+    "recall": {
+      "mean": 0.6578,
+      "std": 0.0277
+    },
+    "f1": {
+      "mean": 0.5542,
+      "std": 0.0138
+    }
+  }
+}
