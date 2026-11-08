@@ -49,10 +49,11 @@ def load_data(archive_path: str | Path = ARCHIVE):
     """Return (X_train_full, y_train_full, X_test). Test labels are never returned."""
     with ZipFile(archive_path) as archive:
         train = pd.read_csv(archive.open('project-5/train_data.csv'))
-        test = pd.read_csv(archive.open('project-5/test_data.csv'))
+        test = pd.read_csv(archive.open('project-5/test_data.csv'),
+                           usecols=lambda column: column != TARGET)
     X_train_full = train.drop(columns=[TARGET])
     y_train_full = train[TARGET]
-    X_test = test.drop(columns=[TARGET])  # all 750 rows kept, original order
+    X_test = test  # target never materialised; all 750 rows kept, original order
     return X_train_full, y_train_full, X_test
 
 
@@ -80,29 +81,35 @@ def load_split(path: str | Path = SPLIT_FILE):
 class DomainCleaner(BaseEstimator, TransformerMixin):
     """Stateless, row-wise fixes motivated by the EDA. Learns nothing from data.
 
-    * Credit Score > 850 -> divided by 10 (hypothesised x10 entry), flag kept.
+    * Credit Score > 850 -> divide by 10, missing, or raw (explicit hypothesis).
     * Current Loan Amount == 99999999 -> NaN (treated as unknown), flag kept.
     * Years in current job -> ordinal 0..10.
     * One indicator for income/score missingness (their masks are identical in EDA),
       plus indicators for delinquency and tenure missingness.
     """
 
-    def __init__(self, use_anomaly_flags: bool = True):
+    def __init__(self, use_anomaly_flags: bool = True, score_policy: str = "divide"):
         self.use_anomaly_flags = use_anomaly_flags
+        self.score_policy = score_policy
 
     def fit(self, X, y=None):
         return self
 
     def transform(self, X):
+        if self.score_policy not in {'divide', 'missing', 'raw'}:
+            raise ValueError('score_policy must be divide, missing or raw')
         X = X.copy()
         score_high = X['Credit Score'].gt(SCORE_SCALE_LIMIT)
         loan_sentinel = X['Current Loan Amount'].eq(LOAN_SENTINEL)
         X['income_score_missing'] = X['Annual Income'].isna().astype(int)
         X['delinquent_missing'] = X['Months since last delinquent'].isna().astype(int)
-        X['tenure_missing'] = X['Years in current job'].isna().astype(int)
+        X['tenure_missing'] = X['Years in current job'].map(TENURE_ORDER).isna().astype(int)
         X['score_scale_flag'] = score_high.astype(int)
         X['loan_sentinel_flag'] = loan_sentinel.astype(int)
-        X.loc[score_high, 'Credit Score'] = X.loc[score_high, 'Credit Score'] / 10
+        if self.score_policy == 'divide':
+            X.loc[score_high, 'Credit Score'] = X.loc[score_high, 'Credit Score'] / 10
+        elif self.score_policy == 'missing':
+            X.loc[score_high, 'Credit Score'] = np.nan
         X.loc[loan_sentinel, 'Current Loan Amount'] = np.nan
         X['Years in current job'] = X['Years in current job'].map(TENURE_ORDER).astype(float)
         if not self.use_anomaly_flags:
@@ -110,10 +117,13 @@ class DomainCleaner(BaseEstimator, TransformerMixin):
         return X
 
 
-def build_preprocessor(use_anomaly_flags: bool = True, scale: bool = True) -> Pipeline:
+def build_preprocessor(use_anomaly_flags: bool = True, scale: bool = True,
+                       min_frequency: int = 20, score_policy: str = "divide") -> Pipeline:
     """Unfitted preprocessing: DomainCleaner followed by a ColumnTransformer.
 
     ``scale=False`` skips log/StandardScaler for tree models (participant 3).
+    ``min_frequency`` is learned per training fold; ``score_policy`` exposes the
+    unconfirmed mixed-scale hypothesis for training-only sensitivity checks.
     """
     flags = FLAG_COLS if use_anomaly_flags else [c for c in FLAG_COLS if c not in ANOMALY_FLAGS]
     if scale:
@@ -126,7 +136,7 @@ def build_preprocessor(use_anomaly_flags: bool = True, scale: bool = True) -> Pi
         numeric = SimpleImputer(strategy='median')
     categorical = make_pipeline(
         SimpleImputer(strategy='constant', fill_value='missing'),
-        OneHotEncoder(handle_unknown='infrequent_if_exist', min_frequency=20, sparse_output=False),
+        OneHotEncoder(handle_unknown='infrequent_if_exist', min_frequency=min_frequency, sparse_output=False),
     )
     columns = ColumnTransformer([
         ('money', money, MONEY_COLS),
@@ -134,4 +144,4 @@ def build_preprocessor(use_anomaly_flags: bool = True, scale: bool = True) -> Pi
         ('flags', 'passthrough', flags),
         ('categorical', categorical, CATEGORICAL_COLS),
     ], verbose_feature_names_out=False)
-    return Pipeline([('clean', DomainCleaner(use_anomaly_flags)), ('columns', columns)])
+    return Pipeline([('clean', DomainCleaner(use_anomaly_flags, score_policy)), ('columns', columns)])

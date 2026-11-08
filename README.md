@@ -16,8 +16,9 @@ Test rows must not be deleted.
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
-pip install pandas numpy scikit-learn matplotlib jupyter
-jupyter lab   # open a notebook → Restart Kernel and Run All
+python -m pip install -r requirements.lock.txt
+python run_participant2.py
+python -m unittest discover -s tests -v
 ```
 
 Run notebooks from the repository root (they read `Project_eng.zip` and import `credit_pipeline.py`).
@@ -32,6 +33,8 @@ pre = cp.build_preprocessor(scale=False)       # trees; scale=True for linear / 
 ```
 
 - Baseline to beat (validation, class 1): Precision 0.458, Recall 0.647, F1 0.536 (logistic regression, balanced).
-- Without the two anomaly flags F1 drops to 0.472 — report both variants (see notebook section 6).
+- Fixed baseline without the flags: F1 0.472. Removing flags alone does not establish absence of leakage.
+- Training-only search: 120 configurations × 5 folds; chosen C=0.1, balanced, rare count=50, high-score policy=missing. Validation F1 0.533 (no-flags ablation: 0.463), so tuning did not improve on the fixed baseline. Full search and tuned predictions are in `artifacts/participant2/`; see the guide for reconstruction.
+- Denis explored the full original training target before the split: validation is not fully blind. Anomaly provenance remains unconfirmed.
 - Error analysis can start from `artifacts/participant2/baseline_validation_predictions.csv`.
 - Use `cp.load_test_labels()` only once, for the final evaluation of the chosen model.
