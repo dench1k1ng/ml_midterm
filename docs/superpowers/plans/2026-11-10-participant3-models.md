@@ -4,7 +4,7 @@
 
 **Goal:** обучить Random Forest и HistGradientBoosting на разбиении участника 2, подобрать порог по F1 только на обучающей части, сравнить с логистической регрессией с флагами аномалий и без них, разобрать ошибки и один раз оценить выбранную модель на test.
 
-**Architecture:** вспомогательный код лежит в `participant3.py` рядом с `credit_pipeline.py` и покрыт тестами. Ноутбук `Participant3_Models_Comparison.ipynb` вызывает эти функции, объясняет каждый шаг и сохраняет результаты в `artifacts/participant3/`.
+**Architecture:** вспомогательный код лежит в `participant3.py` рядом с `credit_pipeline.py` и покрыт тестами. Ноутбук `3_Nikita_Vassilenko_Models_Comparison.ipynb` вызывает эти функции, объясняет каждый шаг и сохраняет результаты в `artifacts/participant3/`.
 
 **Tech Stack:** Python, scikit-learn 1.9.1 (`RandomForestClassifier`, `HistGradientBoostingClassifier`, `TunedThresholdClassifierCV`), pandas, matplotlib, unittest. Новых зависимостей нет: XGBoost и LightGBM в `requirements.lock.txt` отсутствуют, а `HistGradientBoostingClassifier` относится к тому же семейству моделей.
 
@@ -92,11 +92,11 @@ class Participant3(unittest.TestCase):
 - [ ] **Step 4:** `python -m unittest discover -s tests -v` → все тесты проходят, включая 5 старых.
 - [ ] **Step 5:** commit `Add participant 3 model helpers`.
 
-### Task 2: Ноутбук `Participant3_Models_Comparison.ipynb`
+### Task 2: Ноутбук `3_Nikita_Vassilenko_Models_Comparison.ipynb`
 
 **Files:**
-- Create: `Participant3_Models_Comparison.ipynb`
-- Modify: `run_participant2.py`: имя ноутбука берётся из `sys.argv[1]`, по умолчанию остаётся ноутбук участника 2.
+- Create: `3_Nikita_Vassilenko_Models_Comparison.ipynb`
+- Modify: `run_notebook.py`: имя ноутбука берётся из `sys.argv[1]`, по умолчанию остаётся ноутбук участника 2.
 - Create (артефакты при запуске): `artifacts/participant3/cv_comparison.csv`, `validation_comparison.csv`, `validation_predictions.csv`, `test_metrics.json`, `figures/*.png`.
 
 **Interfaces:**
@@ -112,7 +112,7 @@ class Participant3(unittest.TestCase):
 - [ ] **Step 6. Выбор модели:** правило фиксируется до test: максимум validation F1, при разнице < 0.01 берём модель проще (logreg < RF < HGB). Финальная модель переобучается на `idx_tr ∪ idx_va` с порогом, заново подобранным через `tune_threshold` на этих строках.
 - [ ] **Step 7. Test, единственный вызов:** `cp.load_test_labels()`, метрики класса 1, `assert len(pred) == 750`. Результат сохраняется в `test_metrics.json`.
 - [ ] **Step 8. Вывод:** таблица всех моделей, ответы на вопросы про флаги и смысл класса 1, ограничения (EDA видел весь train, поэтому validation не полностью слепой).
-- [ ] **Step 9:** `python run_participant2.py Participant3_Models_Comparison.ipynb` выполняется без ошибок, артефакты на месте.
+- [ ] **Step 9:** `python run_notebook.py 3_Nikita_Vassilenko_Models_Comparison.ipynb` выполняется без ошибок, артефакты на месте.
 - [ ] **Step 10:** прогнать markdown-ячейки через `/deslop` (file mode, код не трогать).
 - [ ] **Step 11:** commit `Add participant 3 model comparison notebook`.
 

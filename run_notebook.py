@@ -10,7 +10,7 @@ from jupyter_client import KernelManager
 from jupyter_client.kernelspec import KernelSpecManager
 
 root = Path(__file__).resolve().parent
-path = root / 'Participant2_Preprocessing_Baseline.ipynb'
+path = root / (sys.argv[1] if len(sys.argv) > 1 else '2_Abylay_Latiyev_Preprocessing_Baseline.ipynb')
 with TemporaryDirectory(prefix='participant2-kernel-') as temporary:
     kernel = Path(temporary) / 'participant2'
     kernel.mkdir()
@@ -29,4 +29,4 @@ with TemporaryDirectory(prefix='participant2-kernel-') as temporary:
         if manager.has_kernel:
             manager.shutdown_kernel(now=True)
     nbformat.write(notebook, path)
-print('Participant 2 notebook executed; outputs and artifacts saved.')
+print(f'{path.name} executed; outputs and artifacts saved.')

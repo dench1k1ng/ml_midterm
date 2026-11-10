@@ -4,20 +4,20 @@ Data: `Project_eng.zip` (`project-5/train_data.csv` — 6,750 rows, `project-5/t
 Test rows must not be deleted.
 
 - Progress and next steps: [PROGRESS.md](PROGRESS.md)
-- Guide for participant 2: [PARTICIPANT2_GUIDE.md](PARTICIPANT2_GUIDE.md)
+- Guide for participant 2: [2_Abylay_Latiyev_Guide.md](2_Abylay_Latiyev_Guide.md)
 
 | Part | Owner | Deliverable | Status |
 |---|---|---|---|
-| Data audit & EDA | Denis | `Denis_Credit_Default_EDA.ipynb` | done |
-| Preprocessing, split, baseline | Participant 2 | `credit_pipeline.py`, `Participant2_Preprocessing_Baseline.ipynb`, `artifacts/participant2/` | done |
-| Extra models, comparison, error analysis | Participant 3 | — | to do |
+| Data audit & EDA | Denis Shin | `1_Denis_Shin_EDA.ipynb` | done |
+| Preprocessing, split, baseline | Abylay Latiyev | `credit_pipeline.py`, `2_Abylay_Latiyev_Preprocessing_Baseline.ipynb`, `artifacts/participant2/` | done |
+| Extra models, comparison, error analysis | Nikita Vassilenko | — | to do |
 
 ## Run
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 python -m pip install -r requirements.lock.txt
-python run_participant2.py
+python run_notebook.py
 python -m unittest discover -s tests -v
 ```
 

@@ -6,9 +6,9 @@ _Обновлено: 2026-11-08, ветка `feat/endterm`_
 
 | Часть | Ответственный | Статус | Результат |
 |---|---|---|---|
-| 1. Аудит данных и EDA | Денис | ✅ готово | `Denis_Credit_Default_EDA.ipynb` |
-| 2. Предобработка, разбиение, базовая модель | Участник 2 | ✅ код готов, участнику нужно разобраться ([гайд](PARTICIPANT2_GUIDE.md)) | `credit_pipeline.py`, `Participant2_Preprocessing_Baseline.ipynb`, `artifacts/participant2/` |
-| 3. Дополнительные модели, сравнение, разбор ошибок | Участник 3 | ⏳ не начато | — |
+| 1. Аудит данных и EDA | Denis Shin | ✅ готово | `1_Denis_Shin_EDA.ipynb` |
+| 2. Предобработка, разбиение, базовая модель | Abylay Latiyev | ✅ код готов, участнику нужно разобраться ([гайд](2_Abylay_Latiyev_Guide.md)) | `credit_pipeline.py`, `2_Abylay_Latiyev_Preprocessing_Baseline.ipynb`, `artifacts/participant2/` |
+| 3. Дополнительные модели, сравнение, разбор ошибок | Nikita Vassilenko | ⏳ не начато | — |
 
 ## Часть 1 — EDA (Денис) ✅
 

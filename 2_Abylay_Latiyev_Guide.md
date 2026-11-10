@@ -11,13 +11,13 @@
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.lock.txt
-python run_participant2.py
+python run_notebook.py
 python -m unittest discover -s tests -v
 ```
 
 Скрипт запускает ноутбук в текущем Python-окружении, сохраняет выполненные ячейки,
 таблицы и графики. Установка Jupyter Lab необязательна; для интерактивной работы
-можно установить его отдельно и открыть `Participant2_Preprocessing_Baseline.ipynb`.
+можно установить его отдельно и открыть `2_Abylay_Latiyev_Preprocessing_Baseline.ipynb`.
 В конце ноутбука должно появиться **ALL CHECKS PASSED**.
 
 ## Что реализовано
