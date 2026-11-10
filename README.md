@@ -10,7 +10,7 @@ Test rows must not be deleted.
 |---|---|---|---|
 | Data audit & EDA | Denis Shin | `1_Denis_Shin_EDA.ipynb` | done |
 | Preprocessing, split, baseline | Abylay Latiyev | `credit_pipeline.py`, `2_Abylay_Latiyev_Preprocessing_Baseline.ipynb`, `artifacts/participant2/` | done |
-| Extra models, comparison, error analysis | Nikita Vassilenko | — | to do |
+| Extra models, comparison, error analysis | Nikita Vassilenko | `participant3.py`, `3_Nikita_Vassilenko_Models_Comparison.ipynb`, `artifacts/participant3/` | done |
 
 ## Run
 
@@ -18,6 +18,7 @@ Test rows must not be deleted.
 python -m venv .venv && source .venv/bin/activate
 python -m pip install -r requirements.lock.txt
 python run_notebook.py
+python run_notebook.py 3_Nikita_Vassilenko_Models_Comparison.ipynb
 python -m unittest discover -s tests -v
 ```
 
@@ -38,3 +39,7 @@ pre = cp.build_preprocessor(scale=False)       # trees; scale=True for linear / 
 - Denis explored the full original training target before the split: validation is not fully blind. Anomaly provenance remains unconfirmed.
 - Error analysis can start from `artifacts/participant2/baseline_validation_predictions.csv`.
 - Use `cp.load_test_labels()` only once, for the final evaluation of the chosen model.
+
+## Result
+
+Chosen model: logistic regression with anomaly flags. Test (class 1): Precision 0.399, Recall 0.633, F1 0.490, ROC AUC 0.756. Tree ensembles win only without the flags (validation F1 0.499 vs 0.478). Details in the part 3 notebook.
