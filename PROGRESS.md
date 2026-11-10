@@ -1,14 +1,14 @@
 # Прогресс проекта — Project 5: Loan Approval (`Credit Default`)
 
-_Обновлено: 2026-11-08, ветка `feat/endterm`_
+_Обновлено: 2026-11-10, ветка `feat/endterm`_
 
 ## Сводка
 
 | Часть | Ответственный | Статус | Результат |
 |---|---|---|---|
-| 1. Аудит данных и EDA | Denis Shin | ✅ готово | `1_Denis_Shin_EDA.ipynb` |
-| 2. Предобработка, разбиение, базовая модель | Abylay Latiyev | ✅ код готов, участнику нужно разобраться ([гайд](2_Abylay_Latiyev_Guide.md)) | `credit_pipeline.py`, `2_Abylay_Latiyev_Preprocessing_Baseline.ipynb`, `artifacts/participant2/` |
-| 3. Дополнительные модели, сравнение, разбор ошибок | Nikita Vassilenko | ✅ готово | `participant3.py`, `3_Nikita_Vassilenko_Models_Comparison.ipynb`, `artifacts/participant3/` |
+| 1. Аудит данных и EDA | Denis Shin | ✅ готово | `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, часть 1 |
+| 2. Предобработка, разбиение, базовая модель | Abylay Latiyev | ✅ готово | `credit_pipeline.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, часть 2, `artifacts/participant2/` |
+| 3. Дополнительные модели, сравнение, разбор ошибок | Nikita Vassilenko | ✅ готово | `participant3.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, часть 3, `artifacts/participant3/` |
 
 ## Часть 1 — EDA (Денис) ✅
 

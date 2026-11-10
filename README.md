@@ -4,25 +4,23 @@ Data: `Project_eng.zip` (`project-5/train_data.csv` — 6,750 rows, `project-5/t
 Test rows must not be deleted.
 
 - Progress and next steps: [PROGRESS.md](PROGRESS.md)
-- Guide for participant 2: [2_Abylay_Latiyev_Guide.md](2_Abylay_Latiyev_Guide.md)
 
 | Part | Owner | Deliverable | Status |
 |---|---|---|---|
-| Data audit & EDA | Denis Shin | `1_Denis_Shin_EDA.ipynb` | done |
-| Preprocessing, split, baseline | Abylay Latiyev | `credit_pipeline.py`, `2_Abylay_Latiyev_Preprocessing_Baseline.ipynb`, `artifacts/participant2/` | done |
-| Extra models, comparison, error analysis | Nikita Vassilenko | `participant3.py`, `3_Nikita_Vassilenko_Models_Comparison.ipynb`, `artifacts/participant3/` | done |
+| Data audit & EDA | Denis Shin | `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 1 | done |
+| Preprocessing, split, baseline | Abylay Latiyev | `credit_pipeline.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 2, `artifacts/participant2/` | done |
+| Extra models, comparison, error analysis | Nikita Vassilenko | `participant3.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 3, `artifacts/participant3/` | done |
 
 ## Run
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 python -m pip install -r requirements.lock.txt
-python run_notebook.py
-python run_notebook.py 3_Nikita_Vassilenko_Models_Comparison.ipynb
+python run_notebook.py   # runs Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb
 python -m unittest discover -s tests -v
 ```
 
-Run notebooks from the repository root (they read `Project_eng.zip` and import `credit_pipeline.py`).
+Run the notebook from the repository root (it reads `Project_eng.zip` and imports `credit_pipeline.py` and `participant3.py`).
 
 ## For participant 3
 

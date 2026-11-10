@@ -10,16 +10,16 @@ from jupyter_client import KernelManager
 from jupyter_client.kernelspec import KernelSpecManager
 
 root = Path(__file__).resolve().parent
-path = root / (sys.argv[1] if len(sys.argv) > 1 else '2_Abylay_Latiyev_Preprocessing_Baseline.ipynb')
-with TemporaryDirectory(prefix='participant2-kernel-') as temporary:
-    kernel = Path(temporary) / 'participant2'
+path = root / (sys.argv[1] if len(sys.argv) > 1 else 'Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb')
+with TemporaryDirectory(prefix='notebook-kernel-') as temporary:
+    kernel = Path(temporary) / 'notebook'
     kernel.mkdir()
     (kernel / 'kernel.json').write_text(json.dumps({
         'argv': [sys.executable, '-m', 'ipykernel_launcher', '-f', '{connection_file}'],
-        'display_name': 'Participant 2', 'language': 'python',
+        'display_name': 'Notebook', 'language': 'python',
         'env': {'OPENBLAS_NUM_THREADS': '1', 'OMP_NUM_THREADS': '1'},
     }))
-    manager = KernelManager(kernel_name='participant2',
+    manager = KernelManager(kernel_name='notebook',
                             kernel_spec_manager=KernelSpecManager(kernel_dirs=[temporary]))
     notebook = nbformat.read(path, as_version=4)
     try:
