@@ -3,7 +3,6 @@
 Data: `Project_eng.zip` (`project-5/train_data.csv` — 6,750 rows, `project-5/test_data.csv` — 750 rows).
 Test rows must not be deleted.
 
-- Progress and next steps: [PROGRESS.md](PROGRESS.md)
 
 | Part | Owner | Deliverable | Status |
 |---|---|---|---|
