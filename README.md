@@ -40,4 +40,4 @@ pre = cp.build_preprocessor(scale=False)       # trees; scale=True for linear / 
 
 ## Result
 
-Chosen model: logistic regression with anomaly flags. Test (class 1): Precision 0.399, Recall 0.633, F1 0.490, ROC AUC 0.756. Tree ensembles win only without the flags (validation F1 0.499 vs 0.478). Details in the part 3 notebook.
+Chosen model: logistic regression with anomaly flags. Test (class 1): Precision 0.399, Recall 0.633, F1 0.490, ROC AUC 0.756. Tree ensembles win only without the flags (validation F1 0.499 vs 0.478). Details in part 3 of the Endterm notebook.
