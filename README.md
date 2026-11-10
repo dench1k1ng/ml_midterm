@@ -16,7 +16,7 @@ Test rows must not be deleted.
 ```bash
 python -m venv .venv && source .venv/bin/activate
 python -m pip install -r requirements.lock.txt
-jupyter lab   # open Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb → Restart Kernel and Run All
+# open Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb in Jupyter or VS Code → Restart Kernel and Run All
 python -m unittest discover -s tests -v
 ```
 
