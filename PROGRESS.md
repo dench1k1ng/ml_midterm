@@ -8,7 +8,7 @@ _Обновлено: 2026-11-10, ветка `feat/endterm`_
 |---|---|---|---|
 | 1. Аудит данных и EDA | Denis Shin | ✅ готово | `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, часть 1 |
 | 2. Предобработка, разбиение, базовая модель | Abylay Latiyev | ✅ готово | `credit_pipeline.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, часть 2, `artifacts/participant2/` |
-| 3. Дополнительные модели, сравнение, разбор ошибок | Nikita Vassilenko | ✅ готово | `participant3.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, часть 3, `artifacts/participant3/` |
+| 3. Дополнительные модели, сравнение, разбор ошибок | Nikita Vassilenko | ✅ готово | `credit_pipeline.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, часть 3, `artifacts/participant3/` |
 
 ## Часть 1 — EDA (Денис) ✅
 
@@ -71,7 +71,6 @@ F1=0.463. Подбор не улучшил исходный validation baseline;
 
 1. Флаги аномалий (скоринг > 850, сумма 99999999) почти идеально разделяют классы. Это реальный сигнал или утечка?
 2. Что означает класс 1 — «дефолт» или «одобрение кредита»?
-3. Удалить из репозитория `endterm.bundle` (копия git-репозитория, для сдачи не нужна).
 
 ## История
 

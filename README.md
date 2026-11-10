@@ -9,18 +9,18 @@ Test rows must not be deleted.
 |---|---|---|---|
 | Data audit & EDA | Denis Shin | `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 1 | done |
 | Preprocessing, split, baseline | Abylay Latiyev | `credit_pipeline.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 2, `artifacts/participant2/` | done |
-| Extra models, comparison, error analysis | Nikita Vassilenko | `participant3.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 3, `artifacts/participant3/` | done |
+| Extra models, comparison, error analysis | Nikita Vassilenko | `credit_pipeline.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 3, `artifacts/participant3/` | done |
 
 ## Run
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 python -m pip install -r requirements.lock.txt
-python run_notebook.py   # runs Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb
+jupyter lab   # open Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb → Restart Kernel and Run All
 python -m unittest discover -s tests -v
 ```
 
-Run the notebook from the repository root (it reads `Project_eng.zip` and imports `credit_pipeline.py` and `participant3.py`).
+Run the notebook from the repository root (it reads `Project_eng.zip` and imports `credit_pipeline.py`).
 
 ## For participant 3
 
