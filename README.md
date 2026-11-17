@@ -1,42 +1,46 @@
-# ml_endterm — Project 5: Loan Approval (`Credit Default`)
+# Final Project — SMS Spam Detection
 
-Data: `Project_eng.zip` (`project-5/train_data.csv` — 6,750 rows, `project-5/test_data.csv` — 750 rows).
-Test rows must not be deleted.
+Binary classification of SMS messages into `ham` and `spam` on the [UCI SMS Spam Collection](https://archive.ics.uci.edu/dataset/228/sms+spam+collection) (5,574 English messages, CC BY 4.0). The team submits one notebook: `Final_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`.
 
+| Part | Scope | Status |
+|---|---|---|
+| 1 — Data & classical ML | deduplication, shared split, EDA, meta-features, NB / LogReg / RF / LinearSVC / HistGradientBoosting | done |
+| 2 — Deep learning | neural models / transformers, weighted loss, threshold tuning | to do |
+| 3 — Evaluation & demo | team benchmark, error analysis, demo | to do |
 
-| Part | Owner | Deliverable | Status |
-|---|---|---|---|
-| Data audit & EDA | Denis Shin | `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 1 | done |
-| Preprocessing, split, baseline | Abylay Latiyev | `credit_pipeline.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 2, `artifacts/participant2/` | done |
-| Extra models, comparison, error analysis | Nikita Vassilenko | `credit_pipeline.py`, `Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb`, part 3, `artifacts/participant3/` | done |
+Main metric: F1 for `spam`, with Precision and PR-AUC reported alongside.
 
 ## Run
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 python -m pip install -r requirements.lock.txt
-# open Endterm_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb in Jupyter or VS Code → Restart Kernel and Run All
-python -m unittest discover -s tests -v
+jupyter nbconvert --to notebook --execute --inplace Final_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb
 ```
 
-Run the notebook from the repository root (it reads `Project_eng.zip` and imports `credit_pipeline.py`).
+Run from the repository root. The notebook downloads NLTK stop-words on first run if they are missing.
 
-## For participant 3
+## Files for Parts 2–3
+
+- `data/SMSSpamCollection` — original UCI file.
+- `data/sms_dedup.csv` — `idx, label, text` after removing 415 duplicates, 5,159 messages left. Duplicates are matched after lower-casing and collapsing whitespace.
+- `artifacts/split.csv` — `idx, split`: stratified train / val / test = 3,611 / 516 / 1,032, seed 42. Use `val` for early stopping and threshold tuning, `test` only for the final evaluation.
+- `artifacts/participant1/test_predictions.csv` — `idx, y_true, score_nb, score_logreg, score_rf, score_svc, score_hgb` on the test split (`score_svc` is a decision score, the others are spam probabilities).
+- `artifacts/participant1/cv_results.csv` — best hyper-parameters and CV F1 per model.
+- `artifacts/participant1/top_features.csv` — top-20 features per model for error analysis.
 
 ```python
-import credit_pipeline as cp
-X_full, y_full, X_test = cp.load_data()        # test labels are NOT loaded
-idx_tr, idx_va = cp.load_split()               # same 5,400 / 1,350 rows as the baseline
-pre = cp.build_preprocessor(scale=False)       # trees; scale=True for linear / kNN / SVM
+import pandas as pd
+df = pd.read_csv("data/sms_dedup.csv").merge(pd.read_csv("artifacts/split.csv"), on="idx")
+train, val, test = (df[df.split == s] for s in ("train", "val", "test"))
 ```
 
-- Baseline to beat (validation, class 1): Precision 0.458, Recall 0.647, F1 0.536 (logistic regression, balanced).
-- Fixed baseline without the flags: F1 0.472. Removing flags alone does not establish absence of leakage.
-- Training-only search: 120 configurations × 5 folds; chosen C=0.1, balanced, rare count=50, high-score policy=missing. Validation F1 0.533 (no-flags ablation: 0.463), so tuning did not improve on the fixed baseline. Full search and tuned predictions are in `artifacts/participant2/`; see the guide for reconstruction.
-- Denis explored the full original training target before the split: validation is not fully blind. Anomaly provenance remains unconfirmed.
-- Error analysis can start from `artifacts/participant2/baseline_validation_predictions.csv`.
-- Use `cp.load_test_labels()` only once, for the final evaluation of the chosen model.
+## Part 1 results (test, spam class)
 
-## Result
-
-Chosen model: logistic regression with anomaly flags. Test (class 1): Precision 0.399, Recall 0.633, F1 0.490, ROC AUC 0.756. Tree ensembles win only without the flags (validation F1 0.499 vs 0.478). Details in part 3 of the Endterm notebook.
+| Model | Precision | Recall | F1 | PR-AUC |
+|---|---|---|---|---|
+| LinearSVC | 0.992 | 0.953 | 0.972 | 0.992 |
+| LogReg | 0.992 | 0.945 | 0.968 | 0.994 |
+| Random Forest | 0.984 | 0.938 | 0.960 | 0.991 |
+| HistGradientBoosting | 1.000 | 0.922 | 0.959 | 0.990 |
+| Multinomial NB | 0.959 | 0.914 | 0.936 | 0.978 |

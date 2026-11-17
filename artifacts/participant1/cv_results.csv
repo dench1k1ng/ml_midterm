@@ -1,0 +1,6 @@
+model,params,cv_f1
+nb,"{'clf__alpha': 0.1, 'ct__w': TfidfVectorizer(min_df=2, ngram_range=(1, 2), sublinear_tf=True)}",0.9457
+logreg,{'clf__C': 1000},0.9532
+rf,"{'clf__class_weight': 'balanced', 'clf__max_depth': 30}",0.9473
+svc,{'clf__C': 10},0.9551
+hgb,"{'clf__learning_rate': 0.1, 'clf__max_depth': 6}",0.9504
