@@ -1,0 +1,7 @@
+model,idx,error,score,text,observation
+LinearSVC,1618,FP,0.0182823349,Glad to see your reply.,Short benign reply. Its SVC margin is barely above the default boundary.
+LinearSVC,3228,FN,-0.0856638656,Welcome! Please reply with your AGE and GENDER to begin. e.g 24M,Asks for age and gender in a short reply format and resembles a normal signup message.
+LinearSVC,4979,FN,-0.721000953,dating:i have had two of these. Only started after i sent a text to talk sport radio last week. Any connection do you think or coincidence?,Conversational report about unsolicited texts. The spam label is ambiguous from the text alone.
+BERT-Tiny,1165,FP,0.685423851,NEFT Transaction with reference number  &lt;#&gt;  for Rs. &lt;DECIMAL&gt;  has been credited to the beneficiary account on  &lt;#&gt;  at  &lt;TIME&gt; : &lt;#&gt;,Legitimate transaction notification with amounts and templated reference fields.
+BERT-Tiny,1926,FN,0.10243804,TheMob>Yo yo yo-Here comes a new selection of hot downloads for our members to get for FREE! Just click & open the next link sent to ur fone...,Free-content promotion uses casual language and refers to a link in another SMS.
+BERT-Tiny,2768,FN,0.491202652,Sorry! U can not unsubscribe yet. THE MOB offer package has a min term of 54 weeks> pls resubmit request after expiry. Reply THEMOB HELP 4 more info,Subscription message mentions cancellation and HELP. It reads like a service notice.
