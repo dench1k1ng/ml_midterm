@@ -44,3 +44,15 @@ train, val, test = (df[df.split == s] for s in ("train", "val", "test"))
 | Random Forest | 0.984 | 0.938 | 0.960 | 0.991 |
 | HistGradientBoosting | 1.000 | 0.922 | 0.959 | 0.990 |
 | Multinomial NB | 0.959 | 0.914 | 0.936 | 0.978 |
+| Dummy (random by class shares) | 0.212 | 0.227 | 0.219 | 0.144 |
+| Dummy (always ham) | 0.000 | 0.000 | 0.000 | 0.124 |
+
+## Sources
+
+- Almeida, T. A., Gómez Hidalgo, J. M., Yamakami, A. (2011). Contributions to the Study of SMS Spam Filtering: New Collection and Results. DocEng 2011. Dataset: [UCI ML Repository](https://archive.ics.uci.edu/dataset/228/sms+spam+collection), CC BY 4.0.
+- Gómez Hidalgo, J. M., Almeida, T. A., Yamakami, A. (2012). On the Validity of a New SMS Spam Collection. ICMLA 2012. Cited for the duplicate analysis.
+- Libraries: scikit-learn, NLTK (stop-words, Porter stemmer), pandas, matplotlib.
+
+## AI assistance
+
+Part 1 was written with Claude Code (Anthropic), which helped with code, notebook text and review. Every team member checked the results and can explain the submitted work.
