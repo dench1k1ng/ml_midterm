@@ -5,7 +5,7 @@ Binary classification of SMS messages into `ham` and `spam` on the [UCI SMS Spam
 | Part | Scope | Status |
 |---|---|---|
 | 1 — Data & classical ML | deduplication, shared split, EDA, meta-features, NB / LogReg / RF / LinearSVC / HistGradientBoosting | done |
-| 2 — Deep learning | neural models / transformers, weighted loss, threshold tuning | to do |
+| 2 — Deep learning | BPE 1D-CNN, WordPiece BERT-Tiny, weighted loss, validation threshold tuning | done |
 | 3 — Evaluation & demo | team benchmark, error analysis, demo | to do |
 
 Main metric: F1 for `spam`, with Precision and PR-AUC reported alongside.
@@ -14,11 +14,12 @@ Main metric: F1 for `spam`, with Precision and PR-AUC reported alongside.
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
+python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
 python -m pip install -r requirements.lock.txt
-jupyter nbconvert --to notebook --execute --inplace Final_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb
+jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=1800 Final_Denis_Shin_Abylay_Latiyev_Nikita_Vassilenko.ipynb
 ```
 
-Run from the repository root. The notebook downloads NLTK stop-words on first run if they are missing.
+Run from the repository root. The commands install the CPU build of PyTorch. Part 2 also uses CUDA automatically if a compatible PyTorch build and GPU are available. On first run the notebook downloads NLTK stop-words and the pretrained BERT-Tiny checkpoint if they are missing. To rerun just Part 2, start at section 2.1. It reads the checked-in dataset and split.
 
 ## Files for Parts 2–3
 
@@ -28,6 +29,8 @@ Run from the repository root. The notebook downloads NLTK stop-words on first ru
 - `artifacts/participant1/test_predictions.csv` — `idx, y_true, score_nb, score_logreg, score_rf, score_svc, score_hgb` on the test split (`score_svc` is a decision score, the others are spam probabilities).
 - `artifacts/participant1/cv_results.csv` — best hyper-parameters and CV F1 per model.
 - `artifacts/participant1/top_features.csv` — top-20 features per model for error analysis.
+- `artifacts/participant2/test_predictions.csv` — `idx, y_true, score_cnn, pred_cnn, score_bert_tiny, pred_bert_tiny`. Join on `idx` for the team benchmark. The `pred_*` columns use each model's validation-tuned threshold.
+- `artifacts/participant2/test_metrics.csv` — test Precision, Recall, F1 and PR-AUC (average precision) for spam, with the selected epoch, threshold and validation F1.
 
 ```python
 import pandas as pd
@@ -52,7 +55,9 @@ train, val, test = (df[df.split == s] for s in ("train", "val", "test"))
 - Almeida, T. A., Gómez Hidalgo, J. M., Yamakami, A. (2011). Contributions to the Study of SMS Spam Filtering: New Collection and Results. DocEng 2011. Dataset: [UCI ML Repository](https://archive.ics.uci.edu/dataset/228/sms+spam+collection), CC BY 4.0.
 - Gómez Hidalgo, J. M., Almeida, T. A., Yamakami, A. (2012). On the Validity of a New SMS Spam Collection. ICMLA 2012. Cited for the duplicate analysis.
 - Libraries: scikit-learn, NLTK (stop-words, Porter stemmer), pandas, matplotlib.
+- Part 2: PyTorch, Hugging Face Transformers and Tokenizers, [Google BERT-Tiny checkpoint](https://huggingface.co/google/bert_uncased_L-2_H-128_A-2) (Turc et al., 2019).
 
 ## AI assistance
 
 Part 1 was written with Claude Code (Anthropic), which helped with code, notebook text and review. Every team member checked the results and can explain the submitted work.
+Part 2 was implemented and run with Codex (OpenAI).
